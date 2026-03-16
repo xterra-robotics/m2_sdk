@@ -1,0 +1,12 @@
+module xterra {
+	module msg {
+		module dds_ {
+			struct JoyData_ {
+				uint8 priority;
+				float axes[6];
+				uint8 buttons[12];
+			};
+		};
+	};
+};
+

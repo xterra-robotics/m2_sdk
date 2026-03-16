@@ -1,0 +1,14 @@
+float32[12] driver_fault
+float32[12] driver_voltage
+float32[12] driver_power
+float32[12] fet_temp
+float32[12] motor_temp
+float32[12] q
+float32[12] dq
+float32[12] q_current
+float32[12] ddq
+float32[12] tau_est
+float32[4] quat
+float32[3] gyro
+float32[3] accel
+float32[3] rpy

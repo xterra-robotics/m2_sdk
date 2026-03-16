@@ -1,0 +1,22 @@
+module xterra {
+    module msg {
+        module dds_ {
+            struct SensorData_ {
+                float driver_fault[12];
+                float driver_voltage[12];
+                float driver_power[12];
+                float fet_temp[12];
+                float motor_temp[12];
+                float q[12];
+                float dq[12];
+                float q_current[12];
+                float ddq[12];
+                float tau_est[12];
+                float quat[4];
+                float gyro[3];
+                float accel[3];
+                float rpy[3];
+            };
+        };
+    };
+};
