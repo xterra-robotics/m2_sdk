@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot name="realsense2_camera" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find svanm2_description)/xacro/_d435.urdf.xacro" />
+  
+  <xacro:sensor_d435 name="camera" topics_ns="camera" parent="base" publish_pointcloud="true">
+    <origin xyz="0.11498 0.00253 0.07415" rpy="0 0 0" />
+  </xacro:sensor_d435>  
+</robot>

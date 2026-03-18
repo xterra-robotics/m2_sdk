@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:property name="PI" value="3.14159265359"/>
+
+<!-- base -->
+<!-- <xacro:property name="base_com_x" value="0.002585"/>
+<xacro:property name="base_com_y" value="0.003221"/>
+<xacro:property name="base_com_z" value="0.008796"/>
+<xacro:property name="base_mass" value="5.428590"/>
+<xacro:property name="base_ixx" value="0.028959"/>
+<xacro:property name="base_ixy" value="-0.000021"/>
+<xacro:property name="base_ixz" value="0.001591"/>
+<xacro:property name="base_iyy" value="0.0601762"/>
+<xacro:property name="base_iyz" value="0.000025"/>
+<xacro:property name="base_izz" value="0.068516"/> -->
+
+<!-- without camera mount
+<xacro:property name="base_com_x" value="-0.002656"/>
+<xacro:property name="base_com_y" value="0.003430"/>
+<xacro:property name="base_com_z" value="0.000860"/>
+<xacro:property name="base_mass" value="5.016234"/>
+<xacro:property name="base_ixx" value="0.023890"/>
+<xacro:property name="base_ixy" value="-0.000506"/>
+<xacro:property name="base_ixz" value="-0.001154"/>
+<xacro:property name="base_iyy" value="0.053100"/>
+<xacro:property name="base_iyz" value="-0.000013"/>
+<xacro:property name="base_izz" value="0.065972"/> -->
+
+Here are the updated xacro properties based on the provided data:
+
+```xml
+<!-- base -->
+<xacro:property name="base_mass" value="5.18596663"/>
+<xacro:property name="base_com_x" value="0.00918208"/>
+<xacro:property name="base_com_y" value="-0.00133606"/>
+<xacro:property name="base_com_z" value="-0.00430117"/>
+<xacro:property name="base_ixx" value="0.02220107"/>
+<xacro:property name="base_ixy" value="-0.00019966"/>
+<xacro:property name="base_ixz" value="-0.00048929"/>
+<xacro:property name="base_iyy" value="0.05026338"/>
+<xacro:property name="base_iyz" value="-0.00001273"/>
+<xacro:property name="base_izz" value="0.06413613"/>
+
+<!-- abd FR-->
+<xacro:property name="abd_l_mass" value="1.12704463"/>
+<xacro:property name="abd_l_com_x" value="0.04244851"/>
+<xacro:property name="abd_l_com_y" value="-0.07733848"/>
+<xacro:property name="abd_l_com_z" value="0.00084768"/>
+<xacro:property name="abd_l_ixx" value="0.0026019"/>
+<xacro:property name="abd_l_ixy" value="0.0001226"/>
+<xacro:property name="abd_l_ixz" value="0.0000075"/>
+<xacro:property name="abd_l_iyy" value="0.0009202"/>
+<xacro:property name="abd_l_iyz" value="-0.0000024"/>
+<xacro:property name="abd_l_izz" value="0.0026365"/>
+
+<!-- hip FR -->
+<xacro:property name="hip_l_mass" value="0.15396568"/>
+<xacro:property name="hip_l_com_x" value="0.00000000"/>
+<xacro:property name="hip_l_com_y" value="-0.00262472"/>
+<xacro:property name="hip_l_com_z" value="-0.06933846"/>
+<xacro:property name="hip_l_ixx" value="0.00075104"/>
+<xacro:property name="hip_l_ixy" value="0.00000000"/>
+<xacro:property name="hip_l_ixz" value="0.00000000"/>
+<xacro:property name="hip_l_iyy" value="0.00076325"/>
+<xacro:property name="hip_l_iyz" value="-0.00002968"/>
+<xacro:property name="hip_l_izz" value="0.00004729"/>
+
+<!-- knee FR -->
+<xacro:property name="knee_l_mass" value="0.1244820"/>
+<xacro:property name="knee_l_com_x" value="-0.0010600"/>
+<xacro:property name="knee_l_com_y" value="0.0000090"/>
+<xacro:property name="knee_l_com_z" value="-0.0450013"/>
+<xacro:property name="knee_l_ixx" value="0.0005021"/>
+<xacro:property name="knee_l_ixy" value="0.0000000"/>
+<xacro:property name="knee_l_ixz" value="-0.0000127"/>
+<xacro:property name="knee_l_iyy" value="0.0005174"/>
+<xacro:property name="knee_l_iyz" value="0.0000001"/>
+<xacro:property name="knee_l_izz" value="0.0000202"/>
+
+<!-- foot FR-->
+<xacro:property name="foot_l_mass" value="0.02330447"/>
+<xacro:property name="foot_l_com_x" value="-0.00255660"/>
+<xacro:property name="foot_l_com_y" value="0.00017773"/>
+<xacro:property name="foot_l_com_z" value="-0.00416818"/>
+<xacro:property name="foot_l_ixx" value="0.00000262"/>
+<xacro:property name="foot_l_ixy" value="0.00000001"/>
+<xacro:property name="foot_l_ixz" value="-0.00000037"/>
+<xacro:property name="foot_l_iyy" value="0.00000262"/>
+<xacro:property name="foot_l_iyz" value="0.00000002"/>
+<xacro:property name="foot_l_izz" value="0.00000300"/>
+```
+<xacro:property name="foot_stiffness" value="30000"/>
+<xacro:property name="foot_damping" value="750"/>
+<xacro:property name="foot_spinning_friction" value="0.3"/>
+<xacro:property name="foot_lateral_friction" value="50"/>
+
+<!-- fr_abd_j -->
+<xacro:property name="abd_j_com_x" value="0.147"/>
+<xacro:property name="abd_j_com_y" value="-0.06"/>
+<xacro:property name="abd_j_com_z" value="0.00025"/>
+<xacro:property name="abd_j_axis" value="1 0 0"/>
+<xacro:property name="abd_j_lower" value="-4.8"/>
+<xacro:property name="abd_j_upper" value="4.8"/>
+<xacro:property name="abd_j_effort" value="20"/>
+<xacro:property name="abd_j_velocity" value="52.4"/>
+
+<!-- fr_hip_j -->
+<xacro:property name="hip_j_com_x" value="0.043751"/>
+<xacro:property name="hip_j_com_y" value="-0.08110"/>
+<xacro:property name="hip_j_com_z" value="0"/>
+<xacro:property name="hip_j_axis" value="0 -1 0"/>
+<xacro:property name="hip_j_effort" value="55"/>
+<xacro:property name="hip_j_lower" value="-4.047197551"/>
+<xacro:property name="hip_j_upper" value="4.188790205"/>
+<xacro:property name="hip_j_velocity" value="28.6"/>
+
+
+<!-- fr_knee_j -->
+<xacro:property name="knee_j_com_x" value="0"/>
+<xacro:property name="knee_j_com_y" value="0"/>
+<xacro:property name="knee_j_com_z" value="-0.1915"/>
+<xacro:property name="knee_j_axis" value="0 -1 0"/>
+<xacro:property name="knee_j_effort" value="55"/>
+<xacro:property name="knee_j_lower" value="-4.696533694"/>
+<xacro:property name="knee_j_upper" value="4.916297857"/>
+<xacro:property name="knee_j_velocity" value ="28.6"/>
+
+<!-- foot_j -->
+<xacro:property name="foot_j_com_x" value="-0.00351"/>
+<xacro:property name="foot_j_com_y" value="0"/>
+<xacro:property name="foot_j_com_z" value="-0.1901"/>
+<xacro:property name="foot_j_axis" value="0 0 1"/>
+
+</robot>

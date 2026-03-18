@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<robot name="svan" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:arg name="DEBUG" default="false"/>
+    <xacro:include filename="$(find svan_metal)/xacro/const.xacro"/>
+    <xacro:include filename="$(find svan_metal)/xacro/leg.xacro"/> 
+    <xacro:include filename="$(find svan_metal)/xacro/materials.xacro"/>
+
+    <xacro:if value="$(arg DEBUG)">
+        <link name="world"/>
+        <joint name="base_static_joint" type="fixed">
+            <origin rpy="0 0 0" xyz="0 0 10"/>
+            <parent link="world"/>
+            <child link="base"/>
+        </joint>
+    </xacro:if> 
+
+    <link name="base">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://svan_metal/meshes/torso.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="svan_green"/> 
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh
+                filename="package://svan_metal/meshes/torso.STL" />
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="${base_com_x} ${base_com_y} ${base_com_z}"/>
+            <mass value="${base_mass}"/>
+            <inertia
+                ixx="${base_ixx}" ixy="${base_ixy}" ixz="${base_ixz}"
+                iyy="${base_iyy}" iyz="${base_iyz}"
+                izz="${base_izz}"/>  
+        </inertial>
+    </link>
+
+
+    <!-- (1 for not mirrored , -1 for mirrored )-->
+    <!-- (1 for front_hind is true, -1 for front_hind is not true)-->
+    <xacro:leg name="FR" mirror="1" front_hind="1"  />
+    <xacro:leg name="FL" mirror="-1"  front_hind="1"  />
+    <xacro:leg name="RR" mirror="1" front_hind="-1" />
+    <xacro:leg name="RL" mirror="-1"  front_hind="-1" />
+
+
+
+    <xacro:include filename="$(find svan_metal)/xacro/gazebo.xacro"/>
+    <!-- <xacro:include filename="$(find svan_metal)/xacro/test_d435_camera.urdf.xacro"/> -->
+</robot>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <material name="svan_black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
+
+    <material name="svan_blue">
+        <color rgba="0.0 0.0 0.8 1.0"/>
+    </material>
+
+    <material name="svan_green">
+        <color rgba="0.024 0.251 0.169 1.0"/>
+    </material>
+
+    <material name="svan_grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+    </material>
+
+</robot>

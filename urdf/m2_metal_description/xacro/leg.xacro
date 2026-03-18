@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- <xacro:include filename="$(find m2_description)/xacro/transmission.xacro"/> -->
+
+    <xacro:macro name="leg" params="name mirror front_hind">
+
+        <!-- hip_link-->
+        <link name="${name}_hip_link">
+            <inertial>
+                <origin xyz="${front_hind*abd_l_com_x} ${mirror*abd_l_com_y} ${abd_l_com_z}"  rpy="0 0 0" />
+                <mass value="${abd_l_mass}"/>
+                <inertia
+                    ixx="${abd_l_ixx}" ixy="${mirror*front_hind*abd_l_ixy}" ixz="${front_hind*abd_l_ixz}"
+                    iyy="${abd_l_iyy}" iyz="${mirror*abd_l_iyz}"
+                    izz="${abd_l_izz}"/>       
+            </inertial>
+            <visual>
+                <xacro:if value="${(front_hind == 1)}">
+                    <origin rpy="0 0 0" xyz="0 0 0" />
+                </xacro:if>
+                <xacro:if value="${(front_hind == -1)}">
+                    <origin rpy="${PI} ${PI} 0" xyz="0 0 0"/>
+                </xacro:if>
+                <geometry>
+                    <xacro:if value="${(mirror == 1 and front_hind == 1) or (mirror == -1 and front_hind == -1)}">
+                        <mesh filename="package://svan_metal/meshes/FR_hip.STL" />
+                    </xacro:if>
+                    <xacro:if value="${(mirror == -1 and front_hind == 1) or (mirror == 1 and front_hind == -1)}">
+                        <mesh filename="package://svan_metal/meshes/FL_hip.STL" />
+                    </xacro:if>
+                </geometry>
+                <material name = "svan_grey"/>
+            </visual>
+            <collision>
+                <xacro:if value="${(front_hind == 1)}">
+                    <origin rpy="0 0 0" xyz="0 0 0" />
+                </xacro:if>
+                <xacro:if value="${(front_hind == -1)}">
+                    <origin rpy="${PI} ${PI} 0" xyz="0 0 0"/>
+                </xacro:if>
+                <geometry>
+                    <xacro:if value="${(mirror == 1 and front_hind == 1) or (mirror == -1 and front_hind == -1)}">
+                        <mesh filename="package://svan_metal/meshes/FR_hip.STL" />
+                    </xacro:if>
+                    <xacro:if value="${(mirror == -1 and front_hind == 1) or (mirror == 1 and front_hind == -1)}">
+                        <mesh filename="package://svan_metal/meshes/FL_hip.STL" />
+                    </xacro:if>
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- HAA_joint -->
+        <joint name="${name}_HAA_joint" type="revolute">
+            <origin xyz="${front_hind*abd_j_com_x} ${mirror*abd_j_com_y} ${abd_j_com_z}" rpy="0 0 0" />
+            <parent link="base"/>
+            <child link="${name}_hip_link"/>
+            <xacro:if value="${(front_hind == 1)}">
+                <axis xyz="1 0 0"/>
+            </xacro:if>
+            <xacro:if value="${(front_hind == -1)}">
+                <axis xyz="-1 0 0"/>
+            </xacro:if>
+            <limit lower="${abd_j_lower}" upper="${abd_j_upper}" effort="${abd_j_effort}" velocity="${abd_j_velocity}"/>            
+        </joint>
+        
+
+        <!-- thigh link -->
+        <link name="${name}_thigh_link">
+            <inertial>
+                <origin xyz="${front_hind*hip_l_com_x} ${-mirror*hip_l_com_y} ${hip_l_com_z}"  rpy="0 0 0" />
+                <mass value="${hip_l_mass}"/>
+                <inertia
+                    ixx="${hip_l_ixx}" ixy="${mirror*front_hind*hip_l_ixy}" ixz="${front_hind*hip_l_ixz}"
+                    iyy="${hip_l_iyy}" iyz="${mirror*hip_l_iyz}"
+                    izz="${hip_l_izz}"/>       
+            </inertial>
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <xacro:if value="${mirror == 1}">
+                        <mesh filename="package://svan_metal/meshes/FR_thigh.STL" />
+                    </xacro:if>
+                    <xacro:if value="${mirror == -1}">
+                        <mesh filename="package://svan_metal/meshes/FL_thigh.STL" />
+                    </xacro:if>
+                </geometry>
+                <material name = "svan_black"/>
+            </visual>
+            <collision>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <xacro:if value="${mirror == 1}">
+                        <mesh filename="package://svan_metal/meshes/FR_thigh.STL" />
+                    </xacro:if>
+                    <xacro:if value="${mirror == -1}">
+                        <mesh filename="package://svan_metal/meshes/FL_thigh.STL" />
+                    </xacro:if>
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- HFE_joint -->
+        <joint name="${name}_HFE_joint" type="revolute">
+            <origin xyz="${front_hind*hip_j_com_x} ${mirror*hip_j_com_y} ${hip_j_com_z}" rpy="0 0 0" />
+            <parent link="${name}_hip_link"/>
+            <child link="${name}_thigh_link"/>
+            <xacro:if value="${(mirror == 1)}">
+                <axis xyz="0 1 0"/>
+            </xacro:if>
+            <xacro:if value="${(mirror == -1)}">
+                <axis xyz="0 1 0"/>
+            </xacro:if>
+            <limit lower="${hip_j_lower}" upper="${hip_j_upper}" effort="${hip_j_effort}" velocity="${hip_j_velocity}"/>            
+        </joint>
+
+
+        <!-- shank_link-->
+        <link name="${name}_shank_link">
+            <inertial>
+                <origin xyz="${front_hind*knee_l_com_x} ${mirror*knee_l_com_y} ${knee_l_com_z}"  rpy="0 0 0" />
+                <mass value="${knee_l_mass}"/>
+                <inertia
+                    ixx="${knee_l_ixx}" ixy="${mirror*knee_l_ixy}" ixz="${knee_l_ixz}"
+                    iyy="${knee_l_iyy}" iyz="${mirror*knee_l_iyz}"
+                    izz="${knee_l_izz}"/>       
+            </inertial>
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <xacro:if value="${mirror == 1}">
+                        <mesh filename="package://svan_metal/meshes/FR_shank.STL" />
+                    </xacro:if>
+                    <xacro:if value="${mirror == -1}">
+                        <mesh filename="package://svan_metal/meshes/FL_shank.STL" />
+                    </xacro:if>
+                </geometry>
+                <material name = "svan_black"/>
+            </visual>
+            <collision>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <xacro:if value="${mirror == 1}">
+                        <mesh filename="package://svan_metal/meshes/FR_shank.STL" />
+                    </xacro:if>
+                    <xacro:if value="${mirror == -1}">
+                        <mesh filename="package://svan_metal/meshes/FL_shank.STL" />
+                    </xacro:if>
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- KFE_joint -->
+        <joint name="${name}_KFE_joint" type="revolute">
+            <origin xyz="${front_hind*knee_j_com_x} ${mirror*knee_j_com_y} ${knee_j_com_z}" rpy="0 0 0" />
+            <parent link="${name}_thigh_link"/>
+            <child link="${name}_shank_link"/>
+            <xacro:if value="${(mirror == 1)}">
+                <axis xyz="0 1 0"/>
+            </xacro:if>
+            <xacro:if value="${(mirror == -1)}">
+                <axis xyz="0 1 0"/>
+            </xacro:if>
+            <limit lower="${knee_j_lower}" upper="${knee_j_upper}" effort="${knee_j_effort}" velocity="${knee_j_velocity}"/>            
+        </joint>
+
+
+        <!-- foot-->
+        <link name="foot_${name}">
+            <contact>
+                <friction_anchor/>
+                <stiffness value="${foot_stiffness}"/>
+                <damping value="${foot_damping}"/>
+                <spinning_friction value="${foot_spinning_friction}"/>
+                <lateral_friction value="${foot_lateral_friction}"/>
+            </contact>
+            <inertial>
+                <origin xyz="${front_hind*foot_l_com_x} ${mirror*foot_l_com_y} ${foot_l_com_z}"  rpy="0 0 0" />
+                <mass value="${foot_l_mass}"/>
+                <inertia
+                    ixx="${foot_l_ixx}" ixy="${mirror*front_hind*foot_l_ixy}" ixz="${front_hind*foot_l_ixz}"
+                    iyy="${foot_l_iyy}" iyz="${mirror*foot_l_iyz}"
+                    izz="${foot_l_izz}"/>       
+            </inertial>
+            <visual>
+            <geometry>
+                 <mesh filename="package://svan_metal/meshes/FL_foot.STL" />
+            </geometry>
+            </visual>
+            <collision>
+            <geometry>
+                <mesh filename="package://svan_metal/meshes/FL_foot.STL" />
+            </geometry>
+            </collision>
+        </link>
+
+        <!-- foot_j -->
+        <joint name="${name}_foot_j" type="revolute">
+            <origin xyz="${foot_j_com_x} ${mirror*foot_j_com_y} ${foot_j_com_z}" rpy="0 0 0" />
+            <parent link="${name}_shank_link"/>
+            <child link="foot_${name}"/>
+            <axis xyz="0 0 1"/>
+            <limit lower="0" upper="0" effort="1000" velocity="0" />           
+        </joint>
+
+     </xacro:macro>
+
+</robot>

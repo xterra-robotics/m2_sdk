@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+
+  <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <gazebo>
+          <plugin name="motor_controller" filename="libmotor_controller.so">
+            <!-- 
+            <kp0>75</kp0>
+            <kp1>30.2</kp1>
+            <kp2>18.415</kp2> -->
+            <kp0>200.2</kp0>
+            <kp1>60.2</kp1>
+            <kp2>42.415</kp2>
+            <kd0>1</kd0>
+            <kd1>1.5</kd1>
+            <kd2>0.5</kd2>
+            <!-- 
+            <kp0>80</kp0>
+            <kp1>40</kp1>
+            <kp2>20</kp2>
+            <kd0>1</kd0>
+            <kd1>1</kd1>
+            <kd2>0.5</kd2> -->
+            <!-- 
+            <kp0>200</kp0>
+            <kp1>120</kp1>
+            <kp2>60</kp2>
+            <kd0>1</kd0>
+            <kd1>1</kd1>
+            <kd2>0.5</kd2> -->
+            <!-- adding higher gains for the swing leg -->
+            <kpsw0>300</kpsw0>
+            <kpsw1>300</kpsw1>
+            <kpsw2>300</kpsw2>
+            <kdsw0>6</kdsw0>
+            <kdsw1>6</kdsw1>
+            <kdsw2>6</kdsw2>
+          </plugin>
+    </gazebo>
+
+    <!-- IMU sensor -->
+    <gazebo>
+      <plugin name="imu_sensor" filename="libgazebo_ros_imu.so">
+          <alwaysOn>true</alwaysOn>
+          <bodyName>base</bodyName>
+          <frameName>base</frameName>
+          <topicName>/shvan/imu</topicName>
+          <serviceName>imu_service</serviceName>
+          <xyzOffset> 0 0 0 </xyzOffset>
+          <rpyOffset> 0 0 0 </rpyOffset>
+          <gaussianNoise>0.001</gaussianNoise>
+          <updateRate>1000.0</updateRate>
+      </plugin>
+  </gazebo>
+
+  <!-- joint and base sensor -->
+  <gazebo>
+    <plugin name="joint_state_sensor" filename="libjoint_state_sensor.so"/>
+  </gazebo>
+  <gazebo>
+    <plugin name="base_state_sensor" filename="libbase_state_sensor.so"/>
+  </gazebo>
+  
+  <!-- FR foot -->
+  <gazebo reference="foot_FR">
+        <material>Gazebo/Black</material>
+      <collision>
+        <surface>
+          <bounce>
+            <restitution_coefficient>0</restitution_coefficient>
+            <threshold>1e+06</threshold>
+          </bounce>
+          <friction>
+            <torsional>
+              <coefficient>0.3</coefficient>
+            </torsional>
+            <ode>
+              <mu>100.0</mu>
+              <mu2>50</mu2>
+            </ode>
+            <bullet>
+              <rolling_friction>0.3</rolling_friction>
+              <friction2>50</friction2>
+            </bullet>
+          </friction>
+          <contact>
+            <bullet>
+              <kp>30000.0</kp>
+              <kd>1000.0</kd>
+            </bullet>
+            <ode>
+              <kp>30000.0</kp>
+              <kd>1000.0</kd>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+    </gazebo>
+
+    <!-- FL foot -->
+    <gazebo reference="foot_FL">
+        <material>Gazebo/Black</material>
+      <collision>
+        <surface>
+          <bounce>
+            <restitution_coefficient>0</restitution_coefficient>
+            <threshold>1e+06</threshold>
+          </bounce>
+          <friction>
+            <torsional>
+              <coefficient>0.3</coefficient>
+            </torsional>
+            <ode>
+              <mu>100.0</mu>
+              <mu2>50</mu2>
+            </ode>
+            <bullet>
+              <rolling_friction>0.3</rolling_friction>
+              <friction2>50</friction2>
+            </bullet>
+          </friction>
+          <contact>
+            <bullet>
+              <kp>30000.0</kp>
+              <kd>1000.0</kd>
+            </bullet>
+            <ode>
+              <kp>30000.0</kp>
+              <kd>1000.0</kd>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+    </gazebo>
+
+    <!-- FL foot -->  
+    <gazebo reference="foot_RL">
+        <material>Gazebo/Black</material>
+      <collision>
+        <surface>
+          <bounce>
+            <restitution_coefficient>0</restitution_coefficient>
+            <threshold>1e+06</threshold>
+          </bounce>
+          <friction>
+            <torsional>
+              <coefficient>0.3</coefficient>
+            </torsional>
+            <ode>
+              <mu>100.0</mu>
+              <mu2>50</mu2>
+            </ode>
+            <bullet>
+              <rolling_friction>0.3</rolling_friction>
+              <friction2>50</friction2>
+            </bullet>
+          </friction>
+          <contact>
+            <bullet>
+              <kp>30000.0</kp>
+              <kd>1000.0</kd>
+            </bullet>
+            <ode>
+              <kp>30000.0</kp>
+              <kd>1000.0</kd>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+    </gazebo>
+
+    <!-- RR foot -->
+    <gazebo reference="foot_RR">
+        <material>Gazebo/Black</material>
+      <collision>
+        <surface>
+          <bounce>
+            <restitution_coefficient>0</restitution_coefficient>
+            <threshold>1e+06</threshold>
+          </bounce>
+          <friction>
+            <torsional>
+              <coefficient>0.3</coefficient>
+            </torsional>
+            <ode>
+              <mu>100.0</mu>
+              <mu2>50</mu2>
+            </ode>
+            <bullet>
+              <rolling_friction>0.3</rolling_friction>
+              <friction2>50</friction2>
+            </bullet>
+          </friction>
+          <contact>
+            <bullet>
+              <kp>30000.0</kp>
+              <kd>1000.0</kd>
+            </bullet>
+            <ode>
+              <kp>30000.0</kp>
+              <kd>1000.0</kd>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+    </gazebo>
+
+
+    <!-- Foot contacts. -->
+      <!-- <gazebo>
+          <plugin name="contact_plugin" filename="libcontact_plugin_new.so">
+            <link1>foot_FR</link1>
+            <link2>foot_FL</link2>
+            <link3>foot_RL</link3>
+            <link4>foot_RR</link4>
+            <contact_model>0</contact_model>
+          </plugin>
+      </gazebo> -->
+      <gazebo reference="foot_FR">
+        <sensor name="FR_contact_sensor" type="contact">
+          <always_on>1</always_on>
+          <plugin name="contact_plugin_default" filename="libcontact_plugin_default.so">
+            <foot_link>FR</foot_link>
+          </plugin>
+          <contact>
+            <collision>foot_FR_collision</collision>
+          </contact>
+        </sensor>
+      </gazebo>
+      <gazebo reference="foot_FL">
+        <sensor name="FL_contact_sensor" type="contact">
+          <always_on>1</always_on>
+          <plugin name="contact_plugin_default" filename="libcontact_plugin_default.so">
+            <foot_link>FL</foot_link>
+          </plugin>
+          <contact>
+            <collision>foot_FL_collision</collision>
+          </contact>
+        </sensor>
+      </gazebo>
+      <gazebo reference="foot_RL">
+        <sensor name="RL_contact_sensor" type="contact">
+          <always_on>1</always_on>
+          <plugin name="contact_plugin_default" filename="libcontact_plugin_default.so">
+            <foot_link>RL</foot_link>
+          </plugin>
+          <contact>
+            <collision>foot_RL_collision</collision>
+          </contact>
+        </sensor>
+      </gazebo>
+      <gazebo reference="foot_RR">
+        <sensor name="RR_contact_sensor" type="contact">
+          <always_on>1</always_on>
+          <plugin name="contact_plugin_default" filename="libcontact_plugin_default.so">
+            <foot_link>RR</foot_link>
+          </plugin>
+          <contact>
+            <collision>foot_RR_collision</collision>
+          </contact>
+        </sensor>
+      </gazebo>
+    
+</robot>
