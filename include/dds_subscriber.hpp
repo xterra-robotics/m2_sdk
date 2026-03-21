@@ -9,6 +9,8 @@
 // using namespace dds::domain;
 // using namespace dds::topic;
 
+namespace xterra {
+    
 template <typename T>
 class DDSSubscriber {
    public:
@@ -81,4 +83,6 @@ class DDSSubscriber {
 
     bool messageReceived() const { return m_message_received; }
 };
+
+}
 #endif

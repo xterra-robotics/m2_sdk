@@ -10,6 +10,8 @@
 // using namespace dds::domain;
 // using namespace dds::topic;
 
+namespace xterra {
+
 template<typename T>
 class DDSPublisher {
 private:
@@ -38,4 +40,7 @@ public:
         writer.write(message);
     }
 };
+
+}
+
 #endif
